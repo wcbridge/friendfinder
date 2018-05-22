@@ -43,6 +43,8 @@
                         <h1>Photo link here</h1>
                         <input type="text" id="photo" class="form-control" required>
                     </div>
+                    <br>
+                    <br>
                     <div class="panel-body">
 
                         <form method="POST" role="form">
@@ -178,26 +180,33 @@
             </div>
         </div>
     </div>
-<!-- 
     <script type="text/javascript">
-        // Question: What does this code do?
-        $("#add-btn").on("click", function (event) {
+        
+        $("#submit").on("click", function (event) {
             event.preventDefault();
-            var newCharacter = {
+            var newfriend = {
                 name: $("#name").val().trim(),
-                number: $("#number").val().trim(),
-                email: $("#email").val().trim(),
-                uniqueId: $("#uniqueId").val().trim()
+                photo: $("#photo").val().trim(),
+                scores:[ $("#q1").val(),
+                         $("#q2").val(),
+                         $("#q3").val(),
+                         $("#q4").val(),
+                         $("#q5").val(),
+                         $("#q6").val(),
+                         $("#q7").val(),
+                         $("#q8").val(),
+                         $("#q9").val(),
+                         $("#q10").val(),
+            ]
             };
 
-            // Question: What does this code do??
-            $.post("/api/characters", newCharacter)
+            $.post("/api/friends", newfriend)
                 .then(function (data) {
-                    console.log("add.html", data);
+                    console.log("survey.html", data);
                     alert("Adding character...");
                 });
         });
-    </script> -->
+    </script> 
 
 </body>
 
