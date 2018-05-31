@@ -1,11 +1,13 @@
 var path = require('path');
 
-var friendData = require("../data/friend");
+var friendData = require("../data/friend.js");
 
 module.exports = function (app) {
     app.get("/api/friends", function (req, res) {
         res.json(friendData);
     });
+
+
     app.post("/api/characters", function (req, res) {
         var reducer = (accumulator, currentValue) => parseInt(accumulator) + parseInt(currentValue); 
         var currentUserScore = req.body.scores.reduce(reducer);
@@ -20,6 +22,8 @@ module.exports = function (app) {
                 bestMatchIndex = i
             }
         }
+        friendData.push(req.body);
+
         res.send(friendData[bestMatchIndex])
         console.log(friendData[bestMatchIndex])
     });
