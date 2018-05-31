@@ -9,10 +9,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.use(express.static(path.join(__dirname, "/app/public/index.html")));
 //app.use(express.static(public));
+app.use(express.static(path.join(__dirname, "./app/public")));
 
-
-require('./app/routing/htmlRoutes.js')(app);
 require("./app/routing/apiRoutes")(app);
+require('./app/routing/htmlRoutes.js')(app);
 
 
 app.listen(PORT, function () {
