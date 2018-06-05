@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+
 
 </head>
 
@@ -21,24 +23,25 @@
         <div class="row">
 
             <div class="col-lg-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <strong>Survey</strong>
-                        </h3>
+                <form action="/action_page.php" method="POST" role="form" id="myForm">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <strong>Survey</strong>
+                            </h3>
+                        </div>
+                    
+                        <divclass="container">
+                            <h1>Name</h1>
+                            <input type="text" id="name" class="form-control" required>
+                            <h1>Photo link here</h1>
+                            <input type="text" id="photo" class="form-control" required>
                     </div>
-                    <divclass="container">
-                        <h1>Name</h1>
-                        <input type="text" id="name" class="form-control" required>
-                        <h1>Photo link here</h1>
-                        <input type="text" id="photo" class="form-control" required>
-                </div>
-                <br>
-                <br>
-                <div class="panel-body">
+                    <br>
+                    <br>
+                    <div class="panel-body">
 
-                    <form method="POST" role="form">
+                   <!-- <form method="POST" role="form"> -->
                         <h3>
                             <strong>Question 1</strong>
                         </h3>
@@ -164,7 +167,7 @@
                         <button type="submit" class="btn" id="submit">
                             <class="surveysubmit">
                                 Submit</button>
-                    </form>
+                </form>
                 </div>
             </div>
 
@@ -174,7 +177,7 @@
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
-
+<span class="close">&times;</span>
     <!-- Modal content -->
     <img class="modal-content" id="friendMatch">
 
@@ -186,7 +189,27 @@
 
         $("#submit").on("click", function (event) {
             event.preventDefault();
-            var picture = document.getElementsByClassName("test");
+            
+            // Form validation
+            function validateForm() {
+                var isValid = true;
+                $(".form-control").each(function () {
+                    if ($(this).val() === "") {
+                        isValid = false;
+                    }
+                });
+
+                $(".chosen-select").each(function () {
+
+                    if ($(this).val() === "") {
+                        isValid = false;
+                    }
+                });
+                return isValid;
+            }
+
+            // If all required fields are filled
+            if (validateForm()) {
             var newCharacter = {
                 name: $("#name").val().trim(),
                 photo: $("#photo").val().trim(),
@@ -206,7 +229,6 @@
 
             // Get the modal
             var modal = document.getElementById('myModal')
-          //  modal.innerHTML ="Your Friend Is..." +friendData[bestMatchIndex];
             // Get the <span> element that closes the modal
             var span = document.getElementsByClassName("close")[0];
 
@@ -233,12 +255,17 @@
                     // modal.innerHTML = data.name;
                 document.getElementById("friendMatch").src = data.photo;
                 modal.prepend(data.name)
+                modal.append("click to close")
 
-                    display();
-
-
-                });
-        });
+                display();
+                document.getElementById("myForm").reset();
+            })
+                } else {
+                    alert("Please fill out all fields before submitting!");
+                }
+            });
+        
+        
     
     </script>
 
