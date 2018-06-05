@@ -13,7 +13,6 @@ module.exports = function (app) {
         var currentUserScore = req.body.scores.reduce(reducer);
         var diff = 10000;
         var bestMatchIndex = 0;
-       // console.log(friendData[0].scores);
         for(i=0; i<friendData.length; i++) {
             var compareScore = friendData[i].scores.reduce(reducer);
             var currentDifference = Math.abs(compareScore - currentUserScore);
@@ -23,9 +22,8 @@ module.exports = function (app) {
             }
         }
         friendData.push(req.body);
-
-        res.send(friendData[bestMatchIndex])
-        console.log(friendData[bestMatchIndex])
+        res.send(friendData[bestMatchIndex]);
+        console.log(friendData[bestMatchIndex]);
     });
 }
 

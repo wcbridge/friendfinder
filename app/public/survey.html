@@ -176,10 +176,8 @@
 <div id="myModal" class="modal">
 
     <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
-    </div>
+    <img class="modal-content" id="friendMatch">
+
 
 </div>
 
@@ -188,6 +186,7 @@
 
         $("#submit").on("click", function (event) {
             event.preventDefault();
+            var picture = document.getElementsByClassName("test");
             var newCharacter = {
                 name: $("#name").val().trim(),
                 photo: $("#photo").val().trim(),
@@ -206,17 +205,16 @@
 
 
             // Get the modal
-            var modal = document.getElementById('myModal');
-
-            // Get the button that opens the modal
-            var btn = document.getElementById("submit");
-
+            var modal = document.getElementById('myModal')
+          //  modal.innerHTML ="Your Friend Is..." +friendData[bestMatchIndex];
             // Get the <span> element that closes the modal
             var span = document.getElementsByClassName("close")[0];
 
             // When the user clicks on the button, open the modal 
-            submit.onclick = function () {
+         function display() {
                 modal.style.display = "block";
+                document.getElementById("friendMatch").style.display = "block"
+
             }
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function (event) {
@@ -224,16 +222,21 @@
                     modal.style.display = "none";
                 }
             }
-
-
-
-                console.log(newCharacter);
             // Question: What does this code do??
             $.post("/api/characters", newCharacter)
-            console.log("hey")
                 .then(function (data) {
-                    console.log("add.html", data);
-                    // alert("Adding character...");
+                    console.log(data.name)
+                    console.log(data.photo)
+                    // modify the element
+
+                    // change to append, and thats proof of concept
+                    // modal.innerHTML = data.name;
+                document.getElementById("friendMatch").src = data.photo;
+                modal.prepend(data.name)
+
+                    display();
+
+
                 });
         });
     
