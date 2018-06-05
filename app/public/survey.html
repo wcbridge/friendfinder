@@ -207,7 +207,9 @@
                 });
                 return isValid;
             }
-
+            function reload() {
+                location.reload();
+            }
             // If all required fields are filled
             if (validateForm()) {
             var newCharacter = {
@@ -226,22 +228,15 @@
                 ]
             };
 
-
             // Get the modal
             var modal = document.getElementById('myModal')
             // Get the <span> element that closes the modal
             var span = document.getElementsByClassName("close")[0];
 
-            // When the user clicks on the button, open the modal 
-         function display() {
-                modal.style.display = "block";
-                document.getElementById("friendMatch").style.display = "block"
-
-            }
-            // When the user clicks anywhere outside of the modal, close it
             window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
+                    reload()
                 }
             }
             // Question: What does this code do??
@@ -249,16 +244,15 @@
                 .then(function (data) {
                     console.log(data.name)
                     console.log(data.photo)
-                    // modify the element
+                  function display() {
+                        modal.style.display = "block";
+                        document.getElementById("friendMatch").style.display = "block"
+                        document.getElementById("friendMatch").src = data.photo;
+                        modal.prepend(data.name)
+                        modal.append("click to close")
 
-                    // change to append, and thats proof of concept
-                    // modal.innerHTML = data.name;
-                document.getElementById("friendMatch").src = data.photo;
-                modal.prepend(data.name)
-                modal.append("click to close")
-
-                display();
-                document.getElementById("myForm").reset();
+                    }
+                display();             
             })
                 } else {
                     alert("Please fill out all fields before submitting!");
